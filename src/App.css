@@ -1,0 +1,372 @@
+:root {
+  /* Paleta Java: âmbar suave + azul do logo + café */
+  --bg: #120d08;
+  --panel: rgba(32, 24, 16, 0.72);
+  --panel-solid: #201810;
+  --border: rgba(214, 165, 102, 0.14);
+  --text: #f3ece1;
+  --muted: #b2a890;
+  --java-orange: #d6a566;
+  --java-amber: #c79256;
+  --java-blue: #5382a1;
+  --java-blue-light: #6fa8c7;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+.app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+  gap: 2rem;
+  overflow: hidden;
+}
+
+/* Fundo com brilhos suaves (laranja Java + azul Duke) */
+.app__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(45rem 45rem at 15% -10%, rgba(214, 165, 102, 0.16), transparent 60%),
+    radial-gradient(40rem 40rem at 110% 20%, rgba(83, 130, 161, 0.2), transparent 55%);
+  pointer-events: none;
+}
+
+.app__header,
+.app__main,
+.app__footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Header ---------- */
+.app__brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app__logo {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--java-orange), var(--java-amber));
+  box-shadow: 0 8px 24px rgba(214, 165, 102, 0.3);
+}
+
+.app__logo svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.app__title {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #fff, var(--java-orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app__subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Main ---------- */
+.app__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- Stepper ---------- */
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stepper__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepper__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.stepper__dot {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--panel-solid);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stepper__dot:hover {
+  border-color: var(--java-orange);
+  color: var(--text);
+}
+
+/* Passo bloqueado: não navegável até concluir os anteriores */
+.stepper__dot:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  font-size: 0.75rem;
+}
+
+.stepper__dot:disabled:hover {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.stepper__item--locked .stepper__label {
+  opacity: 0.5;
+}
+
+.stepper__item--active .stepper__dot {
+  border-color: var(--java-orange);
+  color: #fff;
+  background: linear-gradient(135deg, var(--java-orange), var(--java-amber));
+  box-shadow: 0 0 0 4px rgba(214, 165, 102, 0.16);
+}
+
+.stepper__item--done .stepper__dot {
+  border-color: var(--java-blue);
+  color: #fff;
+  background: var(--java-blue);
+}
+
+.stepper__label {
+  font-size: 0.72rem;
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.2;
+  max-width: 7rem;
+}
+
+.stepper__item--active .stepper__label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.stepper__progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.stepper__progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--java-orange), var(--java-amber));
+  transition: width 0.3s ease;
+}
+
+/* ---------- Panel ---------- */
+.panel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem 1.5rem;
+  align-items: start;
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.panel__icon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 14px;
+  font-size: 1.6rem;
+  background: rgba(214, 165, 102, 0.1);
+  border: 1px solid var(--border);
+}
+
+.panel__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--java-blue-light);
+  font-weight: 600;
+}
+
+.panel__title {
+  margin: 0.4rem 0 0.5rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.panel__description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---------- Seletor de projeto ---------- */
+.project-picker {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.project-picker__btn {
+  background: rgba(214, 165, 102, 0.1);
+}
+
+.project-picker__result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.project-picker__name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.project-picker__path {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.project-picker__badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0;
+}
+
+.project-picker__badge--ok {
+  color: var(--java-blue-light);
+}
+
+.project-picker__badge--warn {
+  color: #e0b05a;
+}
+
+.panel__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--java-orange), var(--java-amber));
+  color: #fff;
+}
+
+.btn--primary:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(214, 165, 102, 0.3);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:not(:disabled):hover {
+  border-color: var(--java-orange);
+}
+
+/* ---------- Footer ---------- */
+.app__footer {
+  display: flex;
+  justify-content: center;
+}
+
+.app__versions {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 640px) {
+  .stepper__label {
+    display: none;
+  }
+  .panel {
+    grid-template-columns: 1fr;
+  }
+}

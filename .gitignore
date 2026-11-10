@@ -1,0 +1,26 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+dist-electron/
+out/
+release/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Ambiente / credenciais (NUNCA commitar)
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
